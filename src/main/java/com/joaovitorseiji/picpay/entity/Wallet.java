@@ -41,6 +41,19 @@ public class Wallet {
 	public Wallet() {
 		
 	}
+	
+	
+
+	public Wallet(String fullname, String document, String email, String password, WalletType walletType) {
+		super();
+		this.fullname = fullname;
+		this.document = document;
+		this.email = email;
+		this.password = password;
+		this.walletType = walletType;
+	}
+
+
 
 	public Long getId() {
 		return id;
