@@ -1,6 +1,7 @@
 package com.joaovitorseiji.picpay.entity;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -110,8 +111,57 @@ public class Wallet {
 	public void setWalletType(WalletType walletType) {
 		this.walletType = walletType;
 	}
-	
-	
 
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(balance, document, email, fullname, id, password, walletType);
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Wallet other = (Wallet) obj;
+		return Objects.equals(balance, other.balance) && Objects.equals(document, other.document)
+				&& Objects.equals(email, other.email) && Objects.equals(fullname, other.fullname)
+				&& Objects.equals(id, other.id) && Objects.equals(password, other.password)
+				&& Objects.equals(walletType, other.walletType);
+	}
+
+
+
+	public boolean isTypeAllowedToTransfer() {
+	    System.out.println("Wallet type: " + walletType);
+	    if(walletType.equals(WalletType.Enum.USER.get())) {
+	        return true;
+	    }
+	    return false;
+	}
+	
+	public boolean isBalanceBiggerThan(BigDecimal value) {
+		if(value.compareTo(balance) <= 0) {
+			return true;
+		}
+		return false;
+	}
+
+
+
+	public void debit(BigDecimal value) {
+		this.setBalance(balance.subtract(value));
+		
+	}
+	
+	public void credit(BigDecimal value) {
+		this.setBalance(balance.add(value));		
+	}
 
 }
