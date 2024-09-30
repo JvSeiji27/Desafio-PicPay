@@ -26,7 +26,7 @@ public class RestExceptionHandler {
 		
 		var pb = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
 		
-		pb.setTitle("Your requestd parameters didn't validate.");
+		pb.setTitle("Your request parameters didn't validate.");
 		pb.setProperty("invalid-params", fieldErrors);
 		
 		return pb;
